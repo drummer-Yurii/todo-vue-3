@@ -17,6 +17,9 @@ const addTodo = () => {
 const doneTodo = (todo) => {
   todo.done = !todo.done;
 };
+const removeTodo = (idx) => { 
+  todos.value.splice(idx, 1);
+};
 </script>
 
 <template>
@@ -27,12 +30,15 @@ const doneTodo = (todo) => {
     <button type="submit">Add new todo</button>
   </form>
   <h2>Todo List</h2>
-  {{ todos }}
   <ul>
     <li v-for="(todo, index) in todos" :key="index">
       <span :class="{ done: todo.done }" @click="doneTodo(todo)">
         {{ todo.content }}
       </span>
+      <button @click="removeTodo(index)">Remove</button>
     </li>
   </ul>
+  <h4 v-if="!todos.length">
+    Empty Todo List
+  </h4>
 </template>
