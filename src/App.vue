@@ -14,6 +14,9 @@ const addTodo = () => {
     newTodo.value = '';
   }
 };
+const doneTodo = (todo) => {
+  todo.done = !todo.done;
+};
 </script>
 
 <template>
@@ -24,8 +27,12 @@ const addTodo = () => {
     <button type="submit">Add new todo</button>
   </form>
   <h2>Todo List</h2>
-  {{ todos }} 
+  {{ todos }}
   <ul>
-    <li></li>
+    <li v-for="(todo, index) in todos" :key="index">
+      <span :class="{ done: todo.done }" @click="doneTodo(todo)">
+        {{ todo.content }}
+      </span>
+    </li>
   </ul>
 </template>
