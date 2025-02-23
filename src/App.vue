@@ -12,13 +12,20 @@ const addTodo = () => {
       content: newTodo.value,
     });
     newTodo.value = '';
+    saveData();
   }
 };
 const doneTodo = (todo) => {
   todo.done = !todo.done;
+  saveData();
 };
-const removeTodo = (idx) => { 
+const removeTodo = (idx) => {
   todos.value.splice(idx, 1);
+  saveData();
+};
+const saveData = () => {
+  const storageData = JSON.stringify(todos.value);
+  localStorage.setItem('todos', storageData);
 };
 </script>
 
@@ -38,7 +45,5 @@ const removeTodo = (idx) => {
       <button @click="removeTodo(index)">Remove</button>
     </li>
   </ul>
-  <h4 v-if="!todos.length">
-    Empty Todo List
-  </h4>
+  <h4 v-if="!todos.length">Empty Todo List</h4>
 </template>
